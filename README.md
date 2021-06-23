@@ -1,7 +1,7 @@
 # Uniswap V3 Periphery
 
-[![Tests](https://github.com/Uniswap/uniswap-v3-periphery/workflows/Tests/badge.svg)](https://github.com/Uniswap/uniswap-v3-periphery/actions?query=workflow%3ATests)
-[![Lint](https://github.com/Uniswap/uniswap-v3-periphery/workflows/Lint/badge.svg)](https://github.com/Uniswap/uniswap-v3-periphery/actions?query=workflow%3ALint)
+[![Tests](https://github.com/Uniswap/uniswap-v3-periphery-optimism/workflows/Tests/badge.svg)](https://github.com/Uniswap/uniswap-v3-periphery-optimism/actions?query=workflow%3ATests)
+[![Lint](https://github.com/Uniswap/uniswap-v3-periphery-optimism/workflows/Lint/badge.svg)](https://github.com/Uniswap/uniswap-v3-periphery-optimism/actions?query=workflow%3ALint)
 
 This repository contains the periphery smart contracts for the Uniswap V3 Protocol.
 For the lower level core contracts, see the [uniswap-v3-core](https://github.com/Uniswap/uniswap-v3-core)
@@ -26,11 +26,6 @@ And to run OVM tests:
 3. On subsequent test runs, run `yarn optimism-down && yarn optimism-up && UPDATE_SNAPSHOT=1 yarn test:ovm`. This is required so the deployer account nonce is reset to zero, which is necessary to get the above bytecode hash when deploying contracts
 
 Both test commands (`yarn test` and `yarn test:ovm`) will automatically update the `POOL_INIT_CODE_HASH` in `PoolAddress.sol` as needed for testing.
-
-## Bug bounty
-
-This repository is subject to the Uniswap V3 bug bounty program,
-per the terms defined [here](./bug-bounty.md).
 
 ## Local deployment
 

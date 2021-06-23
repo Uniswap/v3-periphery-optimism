@@ -165,7 +165,7 @@ contract NonfungiblePositionManager is
 
         IUniswapV3Pool pool = IUniswapV3Pool(PoolAddress.computeAddress(factory, poolIdToPoolKey[position.poolId]));
 
-        (amount0, amount1) = pool.collect(position, poolIdToPoolKey[position.poolId], params);
+        (amount0, amount1) = pool.collect(position, params);
     }
 
     /// @inheritdoc INonfungiblePositionManager

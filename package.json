@@ -33,7 +33,7 @@
     "@openzeppelin/contracts": "3.4.1-solc-0.7-2",
     "@uniswap/lib": "^4.0.1-alpha",
     "@uniswap/v2-core": "1.0.1",
-    "@uniswap/v3-core": "https://github.com/Uniswap/uniswap-v3-core-optimism.git#b2c5555d696428c40c4b236069b3528b2317f3c1",
+    "@uniswap/v3-core": "https://github.com/Uniswap/uniswap-v3-core-optimism.git#519020282f2a884318589c22dd0edd451a9ae67b",
     "base64-sol": "1.0.1",
     "hardhat-watcher": "^2.1.1"
   },

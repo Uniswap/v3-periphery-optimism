@@ -1,6 +1,6 @@
 {
   "name": "@uniswap/v3-periphery-optimism",
-  "description": "🎚 Peripheral smart contracts for interacting with Uniswap V3",
+  "description": "🎚 Optimism fork of peripheral smart contracts for interacting with Uniswap V3 on Optimism",
   "license": "GPL-2.0-or-later",
   "publishConfig": {
     "access": "restricted"

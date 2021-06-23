@@ -3,8 +3,8 @@
 [![Tests](https://github.com/Uniswap/uniswap-v3-periphery-optimism/workflows/Tests/badge.svg)](https://github.com/Uniswap/uniswap-v3-periphery-optimism/actions?query=workflow%3ATests)
 [![Lint](https://github.com/Uniswap/uniswap-v3-periphery-optimism/workflows/Lint/badge.svg)](https://github.com/Uniswap/uniswap-v3-periphery-optimism/actions?query=workflow%3ALint)
 
-This repository contains the periphery smart contracts for the Uniswap V3 Protocol.
-For the lower level core contracts, see the [uniswap-v3-core](https://github.com/Uniswap/uniswap-v3-core)
+This repository contains the Optimism fork of the periphery smart contracts for the Uniswap V3 Protocol.
+For the lower level core contracts, see the [uniswap-v3-core-optimism](https://github.com/Uniswap/uniswap-v3-core-optimism)
 repository.
 
 ## Testing
@@ -26,42 +26,3 @@ And to run OVM tests:
 3. On subsequent test runs, run `yarn optimism-down && yarn optimism-up && UPDATE_SNAPSHOT=1 yarn test:ovm`. This is required so the deployer account nonce is reset to zero, which is necessary to get the above bytecode hash when deploying contracts
 
 Both test commands (`yarn test` and `yarn test:ovm`) will automatically update the `POOL_INIT_CODE_HASH` in `PoolAddress.sol` as needed for testing.
-
-## Local deployment
-
-In order to deploy this code to a local testnet, you should install the npm package
-`@uniswap/v3-periphery`
-and import bytecode imported from artifacts located at
-`@uniswap/v3-periphery/artifacts/contracts/*/*.json`.
-For example:
-
-```typescript
-import {
-  abi as SWAP_ROUTER_ABI,
-  bytecode as SWAP_ROUTER_BYTECODE,
-} from '@uniswap/v3-periphery/artifacts/contracts/SwapRouter.sol/SwapRouter.json'
-
-// deploy the bytecode
-```
-
-This will ensure that you are testing against the same bytecode that is deployed to
-mainnet and public testnets, and all Uniswap code will correctly interoperate with
-your local deployment.
-
-## Using solidity interfaces
-
-The Uniswap v3 periphery interfaces are available for import into solidity smart contracts
-via the npm artifact `@uniswap/v3-periphery`, e.g.:
-
-```solidity
-import '@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol';
-
-contract MyContract {
-  ISwapRouter router;
-
-  function doSomethingWithSwapRouter() {
-    // router.exactInput(...);
-  }
-}
-
-```

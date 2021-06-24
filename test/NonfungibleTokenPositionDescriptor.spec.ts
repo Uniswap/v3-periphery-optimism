@@ -2,7 +2,12 @@ import { constants } from 'ethers'
 import { waffle, ethers } from 'hardhat'
 import { expect } from './shared/expect'
 import { Fixture } from 'ethereum-waffle'
-import { NonfungibleTokenPositionDescriptor, MockTimeNonfungiblePositionManager, TestERC20, IWETH9 } from '../typechain-ovm'
+import {
+  NonfungibleTokenPositionDescriptor,
+  MockTimeNonfungiblePositionManager,
+  TestERC20,
+  IWETH9,
+} from '../typechain-ovm'
 import completeFixture from './shared/completeFixture'
 import { encodePriceSqrt } from './shared/encodePriceSqrt'
 import { FeeAmount, TICK_SPACINGS } from './shared/constants'

@@ -33,10 +33,10 @@ contract NonfungiblePositionManager is
     mapping(address => uint80) private _poolIds;
 
     /// @dev Pool keys by pool ID, to save on SSTOREs for position data
-    mapping(uint80 => PoolAddress.PoolKey) public override poolIdToPoolKey;
+    mapping(uint80 => PoolAddress.PoolKey) private _poolIdToPoolKey;
 
     /// @dev The token ID position data
-    mapping(uint256 => Position) public override positions;
+    mapping(uint256 => Position) private _positions;
 
     /// @dev The ID of the next token that will be minted. Skips 0
     uint176 private _nextId = 1;
@@ -56,12 +56,51 @@ contract NonfungiblePositionManager is
         _tokenDescriptor = _tokenDescriptor_;
     }
 
+    /// @inheritdoc INonfungiblePositionManager
+    function positions(uint256 tokenId)
+        external
+        view
+        override
+        returns (
+            uint96 nonce,
+            address operator,
+            address token0,
+            address token1,
+            uint24 fee,
+            int24 tickLower,
+            int24 tickUpper,
+            uint128 liquidity,
+            uint256 feeGrowthInside0LastX128,
+            uint256 feeGrowthInside1LastX128,
+            uint128 tokensOwed0,
+            uint128 tokensOwed1
+        )
+    {
+        Position memory position = _positions[tokenId];
+        require(position.poolId != 0, 'Invalid token ID');
+        PoolAddress.PoolKey memory poolKey = _poolIdToPoolKey[position.poolId];
+        return (
+            position.nonce,
+            position.operator,
+            poolKey.token0,
+            poolKey.token1,
+            poolKey.fee,
+            position.tickLower,
+            position.tickUpper,
+            position.liquidity,
+            position.feeGrowthInside0LastX128,
+            position.feeGrowthInside1LastX128,
+            position.tokensOwed0,
+            position.tokensOwed1
+        );
+    }
+
     /// @dev Caches a pool key
     function cachePoolKey(address pool, PoolAddress.PoolKey memory poolKey) private returns (uint80 poolId) {
         poolId = _poolIds[pool];
         if (poolId == 0) {
             _poolIds[pool] = (poolId = _nextPoolId++);
-            poolIdToPoolKey[poolId] = poolKey;
+            _poolIdToPoolKey[poolId] = poolKey;
         }
     }
 
@@ -101,7 +140,7 @@ contract NonfungiblePositionManager is
         // idempotent set
         uint80 poolId = cachePoolKey(address(pool), poolKey);
 
-        Position storage position = positions[tokenId];
+        Position storage position = _positions[tokenId];
         pool.updatePosition(params, position, tokenId, liquidity, amount0, amount1, poolId);
     }
 
@@ -129,9 +168,9 @@ contract NonfungiblePositionManager is
             uint256 amount1
         )
     {
-        Position storage position = positions[params.tokenId];
+        Position storage position = _positions[params.tokenId];
 
-        IUniswapV3Pool pool = IUniswapV3Pool(PoolAddress.computeAddress(factory, poolIdToPoolKey[position.poolId]));
+        IUniswapV3Pool pool = IUniswapV3Pool(PoolAddress.computeAddress(factory, _poolIdToPoolKey[position.poolId]));
 
         return pool.increaseLiquidity(poolIdToPoolKey[position.poolId], position, params);
     }
@@ -147,9 +186,9 @@ contract NonfungiblePositionManager is
         isAuthorizedForToken(params.tokenId);
 
         IUniswapV3Pool pool =
-            IUniswapV3Pool(PoolAddress.computeAddress(factory, poolIdToPoolKey[positions[params.tokenId].poolId]));
+            IUniswapV3Pool(PoolAddress.computeAddress(factory, _poolIdToPoolKey[_positions[params.tokenId].poolId]));
 
-        (amount0, amount1) = pool.decreaseLiquidity(positions[params.tokenId], params);
+        (amount0, amount1) = pool.decreaseLiquidity(_positions[params.tokenId], params);
     }
 
     /// @inheritdoc INonfungiblePositionManager
@@ -161,9 +200,9 @@ contract NonfungiblePositionManager is
     {
         isAuthorizedForToken(params.tokenId);
 
-        Position storage position = positions[params.tokenId];
+        Position storage position = _positions[params.tokenId];
 
-        IUniswapV3Pool pool = IUniswapV3Pool(PoolAddress.computeAddress(factory, poolIdToPoolKey[position.poolId]));
+        IUniswapV3Pool pool = IUniswapV3Pool(PoolAddress.computeAddress(factory, _poolIdToPoolKey[position.poolId]));
 
         (amount0, amount1) = pool.collect(position, params);
     }
@@ -172,26 +211,26 @@ contract NonfungiblePositionManager is
     function burn(uint256 tokenId) external payable override {
         isAuthorizedForToken(tokenId);
 
-        Position storage position = positions[tokenId];
+        Position storage position = _positions[tokenId];
         require(position.liquidity == 0 && position.tokensOwed0 == 0 && position.tokensOwed1 == 0, 'Not cleared');
-        delete positions[tokenId];
+        delete _positions[tokenId];
         _burn(tokenId);
     }
 
     function _getAndIncrementNonce(uint256 tokenId) internal override returns (uint256) {
-        return uint256(positions[tokenId].nonce++);
+        return uint256(_positions[tokenId].nonce++);
     }
 
     /// @inheritdoc IERC721
     function getApproved(uint256 tokenId) public view override(ERC721, IERC721) returns (address) {
         require(_exists(tokenId), 'ERC721: approved query for nonexistent token');
 
-        return positions[tokenId].operator;
+        return _positions[tokenId].operator;
     }
 
     /// @dev Overrides _approve to use the operator in the position, which is packed with the position permit nonce
     function _approve(address to, uint256 tokenId) internal override(ERC721) {
-        positions[tokenId].operator = to;
+        _positions[tokenId].operator = to;
         emit Approval(ownerOf(tokenId), to, tokenId);
     }
 }

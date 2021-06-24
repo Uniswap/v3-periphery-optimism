@@ -35,15 +35,20 @@ contract NonfungibleTokenPositionDescriptor is INonfungibleTokenPositionDescript
         override
         returns (string memory)
     {
-        (, , uint80 poolId, int24 tickLower, int24 tickUpper, , , , , ) = positionManager.positions(tokenId);
+        (, , address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, , , , , ) =
+            positionManager.positions(tokenId);
 
-        PoolAddress.PoolKey memory poolKey = getPoolKey(positionManager, poolId);
+        IUniswapV3Pool pool =
+            IUniswapV3Pool(
+                PoolAddress.computeAddress(
+                    positionManager.factory(),
+                    PoolAddress.PoolKey({token0: token0, token1: token1, fee: fee})
+                )
+            );
 
-        IUniswapV3Pool pool = IUniswapV3Pool(PoolAddress.computeAddress(positionManager.factory(), poolKey));
-
-        bool _flipRatio = flipRatio(poolKey.token0, poolKey.token1, ChainId.get());
-        address quoteTokenAddress = !_flipRatio ? poolKey.token1 : poolKey.token0;
-        address baseTokenAddress = !_flipRatio ? poolKey.token0 : poolKey.token1;
+        bool _flipRatio = flipRatio(token0, token1, ChainId.get());
+        address quoteTokenAddress = !_flipRatio ? token1 : token0;
+        address baseTokenAddress = !_flipRatio ? token0 : token1;
         (, int24 tick, , , , , ) = pool.slot0();
 
         return
@@ -63,19 +68,10 @@ contract NonfungibleTokenPositionDescriptor is INonfungibleTokenPositionDescript
                     tickUpper: tickUpper,
                     tickCurrent: tick,
                     tickSpacing: pool.tickSpacing(),
-                    fee: poolKey.fee,
+                    fee: fee,
                     poolAddress: address(pool)
                 })
             );
-    }
-
-    function getPoolKey(INonfungiblePositionManager positionManager, uint80 poolId)
-        public
-        view
-        returns (PoolAddress.PoolKey memory)
-    {
-        (address token0, address token1, uint24 fee) = positionManager.poolIdToPoolKey(poolId);
-        return PoolAddress.PoolKey({token0: token0, token1: token1, fee: fee});
     }
 
     function flipRatio(

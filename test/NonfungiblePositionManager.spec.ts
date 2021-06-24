@@ -236,7 +236,9 @@ describe('NonfungiblePositionManager', () => {
       expect(await nft.balanceOf(other.address)).to.eq(1)
       expect(await nft.tokenOfOwnerByIndex(other.address, 0)).to.eq(1)
       const {
-        poolId,
+        fee,
+        token0,
+        token1,
         tickLower,
         tickUpper,
         liquidity,
@@ -245,7 +247,6 @@ describe('NonfungiblePositionManager', () => {
         feeGrowthInside0LastX128,
         feeGrowthInside1LastX128,
       } = await nft.positions(1)
-      const { fee, token0, token1 } = await nft.poolIdToPoolKey(poolId)
       expect(token0).to.eq(tokens[0].address)
       expect(token1).to.eq(tokens[1].address)
       expect(fee).to.eq(FeeAmount.MEDIUM)
@@ -860,19 +861,7 @@ describe('NonfungiblePositionManager', () => {
         amount1Max: MaxUint128,
       })
       await nft.connect(other).burn(tokenId)
-      // OVM change: To reduce contract size, `positions` is no longer a method that reverts for invalid token IDs. It
-      // is now a getter that returns a struct, so we check that the returned struct is full of zeros
-      const position = await nft.positions(tokenId)
-      expect(position.nonce).to.equal('0')
-      expect(position.operator).to.equal(constants.AddressZero)
-      expect(position.poolId).to.equal('0')
-      expect(position.tickLower).to.equal(0)
-      expect(position.tickUpper).to.equal(0)
-      expect(position.liquidity).to.equal('0')
-      expect(position.feeGrowthInside0LastX128).to.equal('0')
-      expect(position.feeGrowthInside1LastX128).to.equal('0')
-      expect(position.tokensOwed0).to.equal('0')
-      expect(position.tokensOwed1).to.equal('0')
+      await expect(nft.positions(tokenId)).to.be.revertedWith('Invalid token ID')
     })
 
     it('gas', async () => {

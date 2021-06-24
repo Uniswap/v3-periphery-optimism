@@ -292,21 +292,27 @@ library NonfungiblePositionLibrary {
         PoolAddress.PoolKey memory poolKey,
         INonfungiblePositionManager.Position storage position,
         INonfungiblePositionManager.IncreaseLiquidityParams calldata params
-    ) public {
-        (uint128 liquidity, uint256 amount0, uint256 amount1) =
-            addLiquidity(
-                pool,
-                poolKey,
-                INonfungiblePositionManager.AddLiquidityParams({
-                    tickLower: position.tickLower,
-                    tickUpper: position.tickUpper,
-                    amount0Desired: params.amount0Desired,
-                    amount1Desired: params.amount1Desired,
-                    amount0Min: params.amount0Min,
-                    amount1Min: params.amount1Min,
-                    recipient: address(this)
-                })
-            );
+    )
+        public
+        returns (
+            uint128 liquidity,
+            uint256 amount0,
+            uint256 amount1
+        )
+    {
+        (liquidity, amount0, amount1) = addLiquidity(
+            pool,
+            poolKey,
+            INonfungiblePositionManager.AddLiquidityParams({
+                tickLower: position.tickLower,
+                tickUpper: position.tickUpper,
+                amount0Desired: params.amount0Desired,
+                amount1Desired: params.amount1Desired,
+                amount0Min: params.amount0Min,
+                amount1Min: params.amount1Min,
+                recipient: address(this)
+            })
+        );
 
         bytes32 positionKey = PositionKey.compute(address(this), position.tickLower, position.tickUpper);
 

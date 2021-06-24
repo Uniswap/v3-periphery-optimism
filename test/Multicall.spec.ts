@@ -1,5 +1,5 @@
 import { ethers, waffle } from 'hardhat'
-import { TestMulticall } from '../typechain/TestMulticall'
+import { TestMulticall } from '../typechain-ovm/TestMulticall'
 import { expect } from './shared/expect'
 
 import snapshotGasCost from './shared/snapshotGasCost'

@@ -8,7 +8,7 @@ import {
   MockTimeSwapRouter,
   TestERC20,
   IUniswapV3Factory,
-} from '../../typechain'
+} from '../../typechain-ovm'
 
 const completeFixture: Fixture<{
   weth9: IWETH9

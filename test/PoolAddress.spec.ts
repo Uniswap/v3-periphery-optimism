@@ -1,7 +1,7 @@
 import { constants } from 'ethers'
 import { waffle, ethers } from 'hardhat'
 
-import { PoolAddressTest } from '../typechain'
+import { PoolAddressTest } from '../typechain-ovm'
 import { POOL_BYTECODE_HASH } from './shared/computePoolAddress'
 import { expect } from './shared/expect'
 import snapshotGasCost from './shared/snapshotGasCost'

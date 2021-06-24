@@ -8,7 +8,7 @@ import {
   MockTimeNonfungiblePositionManager,
   TestERC20,
   V3Migrator,
-} from '../typechain'
+} from '../typechain-ovm'
 import completeFixture from './shared/completeFixture'
 import { v2FactoryFixture } from './shared/externalFixtures'
 

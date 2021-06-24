@@ -3,7 +3,7 @@ import { FeeAmount } from './shared/constants'
 
 import { expect } from './shared/expect'
 
-import { PathTest } from '../typechain'
+import { PathTest } from '../typechain-ovm'
 import { decodePath, encodePath } from './shared/path'
 
 import snapshotGasCost from './shared/snapshotGasCost'

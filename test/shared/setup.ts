@@ -9,7 +9,7 @@
  */
 import { ethers, waffle } from 'hardhat'
 import { Fixture } from 'ethereum-waffle'
-import { IUniswapV3Factory, IWETH9, MockTimeSwapRouter } from '../../typechain'
+import { IUniswapV3Factory, IWETH9, MockTimeSwapRouter } from '../../typechain-ovm'
 
 // Default wallet attached to contracts
 const wallet = waffle.provider.getWallets()[0]

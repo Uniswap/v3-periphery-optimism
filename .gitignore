@@ -1,10 +1,6 @@
-artifacts/
-cache/
-crytic-export/
-node_modules/
-typechain/
-typechain-ovm/
-optimism
-
 artifacts-ovm/
 cache-ovm/
+crytic-export/
+node_modules/
+typechain-ovm/
+optimism/

@@ -10,7 +10,7 @@ import {
   IUniswapV3Factory,
   SwapRouter,
   NonfungiblePositionManagerPositionsGasTest,
-} from '../typechain'
+} from '../typechain-ovm'
 import completeFixture from './shared/completeFixture'
 import { computePoolAddress } from './shared/computePoolAddress'
 import { FeeAmount, MaxUint128, TICK_SPACINGS } from './shared/constants'

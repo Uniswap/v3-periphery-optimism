@@ -1,7 +1,7 @@
 import { Fixture } from 'ethereum-waffle'
 import { constants } from 'ethers'
 import { ethers, network, waffle } from 'hardhat'
-import { MockTimeNonfungiblePositionManager, QuoterV2, TestERC20 } from '../typechain'
+import { MockTimeNonfungiblePositionManager, QuoterV2, TestERC20 } from '../typechain-ovm'
 import completeFixture from './shared/completeFixture'
 import { FeeAmount, MaxUint128 } from './shared/constants'
 import { encodePriceSqrt } from './shared/encodePriceSqrt'

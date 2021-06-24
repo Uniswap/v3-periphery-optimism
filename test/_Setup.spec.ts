@@ -3,7 +3,7 @@ import { expect } from './shared/expect'
 import { v3CoreFactoryFixtureSetup } from './shared/setup'
 import { POOL_BYTECODE_HASH } from './shared/computePoolAddress'
 import { Contract } from 'ethers'
-import { PoolAddressTest } from '../typechain'
+import { PoolAddressTest } from '../typechain-ovm'
 
 /**
  * @notice In the ordinary Uniswap V3 contracts, all bytecode is constant and deterministic, and therefore the

@@ -1,5 +1,5 @@
 import { Wallet } from 'ethers'
-import { MockTimeNonfungiblePositionManager } from '../../typechain'
+import { MockTimeNonfungiblePositionManager } from '../../typechain-ovm'
 import { FeeAmount, TICK_SPACINGS } from './constants'
 import { encodePriceSqrt } from './encodePriceSqrt'
 import { getMaxTick, getMinTick } from './ticks'

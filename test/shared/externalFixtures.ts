@@ -1,7 +1,7 @@
 import { abi as FACTORY_V2_ABI, bytecode as FACTORY_V2_BYTECODE } from '@uniswap/v2-core/build/UniswapV2Factory.json'
 import { Fixture } from 'ethereum-waffle'
 import { ethers, waffle, network } from 'hardhat'
-import { IUniswapV3Factory, IWETH9, MockTimeSwapRouter } from '../../typechain'
+import { IUniswapV3Factory, IWETH9, MockTimeSwapRouter } from '../../typechain-ovm'
 
 import WETH9 from '../contracts/WETH9.json'
 import { Contract } from '@ethersproject/contracts'

@@ -1,6 +1,6 @@
 import { artifacts } from 'hardhat'
 import { Contract, Wallet } from 'ethers'
-import { IUniswapV3Pool } from '../../typechain'
+import { IUniswapV3Pool } from '../../typechain-ovm'
 
 const POOL_ABI = artifacts.readArtifactSync('UniswapV3Pool').abi
 

@@ -2,10 +2,10 @@
 pragma solidity >=0.7.0;
 pragma abicoder v2;
 
-import '@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol';
-import '@uniswap/v3-core/contracts/libraries/FixedPoint128.sol';
-import '@uniswap/v3-core/contracts/libraries/FullMath.sol';
-import '@uniswap/v3-core/contracts/libraries/TickMath.sol';
+import '@uniswap/v3-core-optimism/contracts/interfaces/IUniswapV3Pool.sol';
+import '@uniswap/v3-core-optimism/contracts/libraries/FixedPoint128.sol';
+import '@uniswap/v3-core-optimism/contracts/libraries/FullMath.sol';
+import '@uniswap/v3-core-optimism/contracts/libraries/TickMath.sol';
 
 import '../interfaces/INonfungiblePositionManager.sol';
 import './LiquidityAmounts.sol';

@@ -298,9 +298,9 @@ export default {
   // root instead of in node_modules. See more at https://hardhat.org/plugins/hardhat-dependency-compiler.html
   dependencyCompiler: {
     paths: [
-      '@uniswap/v3-core/contracts/libraries/Position.sol',
-      '@uniswap/v3-core/contracts/UniswapV3PoolDeployer.sol',
-      '@uniswap/v3-core/contracts/UniswapV3Factory.sol',
+      '@uniswap/v3-core-optimism/contracts/libraries/Position.sol',
+      '@uniswap/v3-core-optimism/contracts/UniswapV3PoolDeployer.sol',
+      '@uniswap/v3-core-optimism/contracts/UniswapV3Factory.sol',
     ],
   },
   watcher: {

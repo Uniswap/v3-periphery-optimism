@@ -1011,9 +1011,10 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@uniswap/v2-core/-/v2-core-1.0.1.tgz#af8f508bf183204779938969e2e54043e147d425"
 
-"@uniswap/v3-core@https://github.com/Uniswap/uniswap-v3-core-optimism.git#519020282f2a884318589c22dd0edd451a9ae67b":
-  version "1.0.0-alpha.1"
-  resolved "https://github.com/Uniswap/uniswap-v3-core-optimism.git#519020282f2a884318589c22dd0edd451a9ae67b"
+"@uniswap/v3-core-optimism@1.0.0-alpha.3":
+  version "1.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@uniswap/v3-core-optimism/-/v3-core-optimism-1.0.0-alpha.3.tgz#64cd45072af185e2383355b122200d21a63b56f8"
+  integrity sha512-7aQlXAuvjwNiJTraCZWJfvOzgJkfwPsQXw8nHZCETk1/0N/5QKGKNd3iZtG5JcpOekbveb0vJCnW55a1wMSd7w==
 
 "@yarnpkg/lockfile@^1.1.0":
   version "1.1.0"

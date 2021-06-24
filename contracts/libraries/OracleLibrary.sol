@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity >=0.5.0 <0.8.0;
 
-import '@uniswap/v3-core/contracts/libraries/FullMath.sol';
-import '@uniswap/v3-core/contracts/libraries/TickMath.sol';
-import '@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol';
-import '@uniswap/v3-core/contracts/libraries/LowGasSafeMath.sol';
+import '@uniswap/v3-core-optimism/contracts/libraries/FullMath.sol';
+import '@uniswap/v3-core-optimism/contracts/libraries/TickMath.sol';
+import '@uniswap/v3-core-optimism/contracts/interfaces/IUniswapV3Pool.sol';
+import '@uniswap/v3-core-optimism/contracts/libraries/LowGasSafeMath.sol';
 import '../libraries/PoolAddress.sol';
 
 /// @title Oracle library

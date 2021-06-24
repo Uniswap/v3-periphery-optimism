@@ -10,10 +10,6 @@ exports[`NonfungiblePositionManager #collect gas transfers token1 only 1`] = `19
 
 exports[`NonfungiblePositionManager #createAndInitializePoolIfNecessary gas 1`] = `8300714`;
 
-exports[`NonfungiblePositionManager #decreaseLiquidity gas complete decrease 1`] = `2665775`;
-
-exports[`NonfungiblePositionManager #decreaseLiquidity gas partial decrease 1`] = `2367463`;
-
 exports[`NonfungiblePositionManager #increaseLiquidity gas 1`] = `3002408`;
 
 exports[`NonfungiblePositionManager #mint gas first mint for pool 1`] = `3682708`;
@@ -21,8 +17,6 @@ exports[`NonfungiblePositionManager #mint gas first mint for pool 1`] = `3682708
 exports[`NonfungiblePositionManager #mint gas first mint for pool using eth with non-zero refund 1`] = `4575389`;
 
 exports[`NonfungiblePositionManager #mint gas first mint for pool using eth with zero refund 1`] = `4298908`;
-
-exports[`NonfungiblePositionManager #mint gas mint for same pool, different ticks 1`] = `3523807`;
 
 exports[`NonfungiblePositionManager #mint gas mint on same ticks 1`] = `3289009`;
 

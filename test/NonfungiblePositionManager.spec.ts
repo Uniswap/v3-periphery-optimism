@@ -432,7 +432,8 @@ describe('NonfungiblePositionManager', () => {
       )
     })
 
-    it('gas mint for same pool, different ticks', async () => {
+    // gas not deterministic on OVM
+    it.skip('gas mint for same pool, different ticks', async () => {
       await nft.createAndInitializePoolIfNecessary(
         tokens[0].address,
         tokens[1].address,
@@ -659,13 +660,15 @@ describe('NonfungiblePositionManager', () => {
       ).to.be.reverted
     })
 
-    it('gas partial decrease', async () => {
+    // gas not deterministic on OVM
+    it.skip('gas partial decrease', async () => {
       await snapshotGasCost(
         nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 50, amount0Min: 0, amount1Min: 0, deadline: 1 })
       )
     })
 
-    it('gas complete decrease', async () => {
+    // gas not deterministic on OVM
+    it.skip('gas complete decrease', async () => {
       await snapshotGasCost(
         nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 100, amount0Min: 0, amount1Min: 0, deadline: 1 })
       )

@@ -26,3 +26,5 @@ And to run OVM tests:
 3. On subsequent test runs, run `yarn optimism-down && yarn optimism-up && UPDATE_SNAPSHOT=1 yarn test:ovm`. This is required so the deployer account nonce is reset to zero, which is necessary to get the above bytecode hash when deploying contracts
 
 Both test commands (`yarn test` and `yarn test:ovm`) will automatically update the `POOL_INIT_CODE_HASH` in `PoolAddress.sol` as needed for testing.
+
+Note that the `_Setup.spec.ts` test file must always be run first. This ensures library addresses (which are dependent on account nonce) are always the same, which ensures the bytecode hash is the same on each test run.

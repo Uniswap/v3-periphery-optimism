@@ -12,16 +12,17 @@ export default async function snapshotGasCost(
     | Promise<BigNumber>
     | BigNumber
     | Contract
-    | Promise<Contract>
+    | Promise<Contract>,
+  skip = false
 ): Promise<void> {
   const resolved = await x
   if ('deployTransaction' in resolved) {
     const receipt = await resolved.deployTransaction.wait()
-    expect(receipt.gasUsed.toNumber()).toMatchSnapshot()
+    if (!skip) expect(receipt.gasUsed.toNumber()).toMatchSnapshot()
   } else if ('wait' in resolved) {
     const waited = await resolved.wait()
-    expect(waited.gasUsed.toNumber()).toMatchSnapshot()
+    if (!skip) expect(waited.gasUsed.toNumber()).toMatchSnapshot()
   } else if (BigNumber.isBigNumber(resolved)) {
-    expect(resolved.toNumber()).toMatchSnapshot()
+    if (!skip) expect(resolved.toNumber()).toMatchSnapshot()
   }
 }

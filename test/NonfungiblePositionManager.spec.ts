@@ -162,7 +162,8 @@ describe('NonfungiblePositionManager', () => {
           tokens[1].address,
           FeeAmount.MEDIUM,
           encodePriceSqrt(1, 1)
-        )
+        ),
+        true
       )
     })
   })
@@ -321,7 +322,8 @@ describe('NonfungiblePositionManager', () => {
           amount0Min: 0,
           amount1Min: 0,
           deadline: 10,
-        })
+        }),
+        true
       )
     })
 
@@ -355,7 +357,8 @@ describe('NonfungiblePositionManager', () => {
             nft.interface.encodeFunctionData('refundETH'),
           ],
           { value: 100 }
-        )
+        ),
+        true // gas not deterministic on OVM
       )
     })
 
@@ -389,7 +392,8 @@ describe('NonfungiblePositionManager', () => {
             nft.interface.encodeFunctionData('refundETH'),
           ],
           { value: 1000 }
-        )
+        ),
+        true // gas not deterministic on OVM
       )
     })
 
@@ -428,7 +432,8 @@ describe('NonfungiblePositionManager', () => {
           amount0Min: 0,
           amount1Min: 0,
           deadline: 10,
-        })
+        }),
+        true // gas not deterministic on OVM
       )
     })
 
@@ -467,7 +472,8 @@ describe('NonfungiblePositionManager', () => {
           amount0Min: 0,
           amount1Min: 0,
           deadline: 10,
-        })
+        }),
+        true // gas not deterministic on OVM
       )
     })
   })
@@ -565,7 +571,8 @@ describe('NonfungiblePositionManager', () => {
           amount1Min: 0,
           deadline: 1,
         })
-      )
+      ),
+        true
     })
   })
 
@@ -659,15 +666,19 @@ describe('NonfungiblePositionManager', () => {
       ).to.be.reverted
     })
 
+    // gas not deterministic on OVM
     it('gas partial decrease', async () => {
       await snapshotGasCost(
-        nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 50, amount0Min: 0, amount1Min: 0, deadline: 1 })
+        nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 50, amount0Min: 0, amount1Min: 0, deadline: 1 }),
+        true // gas not deterministic on OVM
       )
     })
 
+    // gas not deterministic on OVM
     it('gas complete decrease', async () => {
       await snapshotGasCost(
-        nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 100, amount0Min: 0, amount1Min: 0, deadline: 1 })
+        nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 100, amount0Min: 0, amount1Min: 0, deadline: 1 }),
+        true // gas not deterministic on OVM
       )
     })
   })
@@ -763,7 +774,8 @@ describe('NonfungiblePositionManager', () => {
           recipient: wallet.address,
           amount0Max: MaxUint128,
           amount1Max: MaxUint128,
-        })
+        }),
+        true
       )
     })
 
@@ -775,7 +787,8 @@ describe('NonfungiblePositionManager', () => {
           recipient: wallet.address,
           amount0Max: MaxUint128,
           amount1Max: 0,
-        })
+        }),
+        true
       )
     })
 
@@ -787,7 +800,8 @@ describe('NonfungiblePositionManager', () => {
           recipient: wallet.address,
           amount0Max: 0,
           amount1Max: MaxUint128,
-        })
+        }),
+        true
       )
     })
   })
@@ -869,7 +883,7 @@ describe('NonfungiblePositionManager', () => {
         amount0Max: MaxUint128,
         amount1Max: MaxUint128,
       })
-      await snapshotGasCost(nft.connect(other).burn(tokenId))
+      await snapshotGasCost(nft.connect(other).burn(tokenId), true)
     })
   })
 
@@ -917,12 +931,12 @@ describe('NonfungiblePositionManager', () => {
     })
 
     it('gas', async () => {
-      await snapshotGasCost(nft.connect(other).transferFrom(other.address, wallet.address, tokenId))
+      await snapshotGasCost(nft.connect(other).transferFrom(other.address, wallet.address, tokenId), true)
     })
 
     it('gas comes from approved', async () => {
       await nft.connect(other).approve(wallet.address, tokenId)
-      await snapshotGasCost(nft.transferFrom(other.address, wallet.address, tokenId))
+      await snapshotGasCost(nft.transferFrom(other.address, wallet.address, tokenId), true)
     })
   })
 
@@ -988,7 +1002,7 @@ describe('NonfungiblePositionManager', () => {
 
       it('gas', async () => {
         const { v, r, s } = await getPermitNFTSignature(other, nft, wallet.address, tokenId, 1)
-        await snapshotGasCost(nft.permit(wallet.address, tokenId, 1, v, r, s))
+        await snapshotGasCost(nft.permit(wallet.address, tokenId, 1, v, r, s), true)
       })
     })
     describe('owned by verifying contract', () => {
@@ -1052,7 +1066,7 @@ describe('NonfungiblePositionManager', () => {
       it('gas', async () => {
         const { v, r, s } = await getPermitNFTSignature(other, nft, wallet.address, tokenId, 1)
         await testPositionNFTOwner.setOwner(other.address)
-        await snapshotGasCost(nft.permit(wallet.address, tokenId, 1, v, r, s))
+        await snapshotGasCost(nft.permit(wallet.address, tokenId, 1, v, r, s), true)
       })
     })
   })
@@ -1141,7 +1155,8 @@ describe('NonfungiblePositionManager', () => {
           amount0Min: 0,
           amount1Min: 0,
           recipient: wallet.address,
-        })
+        }),
+        true // gas not deterministic on OVM
       )
     })
   })
@@ -1215,7 +1230,7 @@ describe('NonfungiblePositionManager', () => {
         deadline: 10,
       })
 
-      await snapshotGasCost(positionsGasTest.getGasCostOfPositions(1))
+      await snapshotGasCost(positionsGasTest.getGasCostOfPositions(1), true)
     })
   })
 

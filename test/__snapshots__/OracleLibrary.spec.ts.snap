@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OracleLibrary #consult gas test 1`] = `11170`;
+exports[`OracleLibrary #consult gas test 1`] = `135303`;
 
-exports[`OracleLibrary #getQuoteAtTick gas test 1`] = `4439`;
+exports[`OracleLibrary #getQuoteAtTick gas test 1`] = `43839`;

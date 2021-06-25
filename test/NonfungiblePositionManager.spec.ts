@@ -355,7 +355,8 @@ describe('NonfungiblePositionManager', () => {
             nft.interface.encodeFunctionData('refundETH'),
           ],
           { value: 100 }
-        )
+        ),
+        true // gas not deterministic on OVM
       )
     })
 
@@ -428,7 +429,8 @@ describe('NonfungiblePositionManager', () => {
           amount0Min: 0,
           amount1Min: 0,
           deadline: 10,
-        })
+        }),
+        true // gas not deterministic on OVM
       )
     })
 
@@ -1146,7 +1148,8 @@ describe('NonfungiblePositionManager', () => {
           amount0Min: 0,
           amount1Min: 0,
           recipient: wallet.address,
-        })
+        }),
+        true // gas not deterministic on OVM
       )
     })
   })

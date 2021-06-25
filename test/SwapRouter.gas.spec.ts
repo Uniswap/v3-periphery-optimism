@@ -315,7 +315,7 @@ describe('SwapRouter gas tests', () => {
 
   describe('#exactInputSingle', () => {
     it('0 -> 1', async () => {
-      await snapshotGasCost(exactInputSingle(tokens[0].address, tokens[1].address))
+      await snapshotGasCost(exactInputSingle(tokens[0].address, tokens[1].address), true)
     })
 
     it('WETH9 -> 0', async () => {

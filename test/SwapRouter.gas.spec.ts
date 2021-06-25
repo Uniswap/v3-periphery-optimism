@@ -268,7 +268,7 @@ describe('SwapRouter gas tests', () => {
 
   describe('#exactInput', () => {
     it('0 -> 1', async () => {
-      await snapshotGasCost(exactInput(tokens.slice(0, 2).map((token) => token.address)))
+      await snapshotGasCost(exactInput(tokens.slice(0, 2).map((token) => token.address)), true)
     })
 
     it('0 -> 1 minimal', async () => {
@@ -276,7 +276,10 @@ describe('SwapRouter gas tests', () => {
       const callee = await calleeFactory.deploy()
 
       await tokens[0].connect(trader).approve(callee.address, constants.MaxUint256)
-      await snapshotGasCost(callee.connect(trader).swapExact0For1(pools[0].address, 2, trader.address, '4295128740'))
+      await snapshotGasCost(
+        callee.connect(trader).swapExact0For1(pools[0].address, 2, trader.address, '4295128740'),
+        true
+      )
     })
 
     it('0 -> 1 -> 2', async () => {
@@ -284,7 +287,8 @@ describe('SwapRouter gas tests', () => {
         exactInput(
           tokens.map((token) => token.address),
           3
-        )
+        ),
+        true
       )
     })
 
@@ -293,7 +297,8 @@ describe('SwapRouter gas tests', () => {
         exactInput(
           [weth9.address, tokens[0].address],
           weth9.address.toLowerCase() < tokens[0].address.toLowerCase() ? 2 : 3
-        )
+        ),
+        true
       )
     })
 
@@ -302,7 +307,8 @@ describe('SwapRouter gas tests', () => {
         exactInput(
           [tokens[0].address, weth9.address],
           tokens[0].address.toLowerCase() < weth9.address.toLowerCase() ? 2 : 3
-        )
+        ),
+        true
       )
     })
   })
@@ -318,7 +324,8 @@ describe('SwapRouter gas tests', () => {
           weth9.address,
           tokens[0].address,
           weth9.address.toLowerCase() < tokens[0].address.toLowerCase() ? 2 : 3
-        )
+        ),
+        true
       )
     })
 
@@ -328,40 +335,41 @@ describe('SwapRouter gas tests', () => {
           tokens[0].address,
           weth9.address,
           tokens[0].address.toLowerCase() < weth9.address.toLowerCase() ? 2 : 3
-        )
+        ),
+        true
       )
     })
   })
 
   describe('#exactOutput', () => {
     it('0 -> 1', async () => {
-      await snapshotGasCost(exactOutput(tokens.slice(0, 2).map((token) => token.address)))
+      await snapshotGasCost(exactOutput(tokens.slice(0, 2).map((token) => token.address)), true)
     })
 
     it('0 -> 1 -> 2', async () => {
-      await snapshotGasCost(exactOutput(tokens.map((token) => token.address)))
+      await snapshotGasCost(exactOutput(tokens.map((token) => token.address)), true)
     })
 
     it('WETH9 -> 0', async () => {
-      await snapshotGasCost(exactOutput([weth9.address, tokens[0].address]))
+      await snapshotGasCost(exactOutput([weth9.address, tokens[0].address]), true)
     })
 
     it('0 -> WETH9', async () => {
-      await snapshotGasCost(exactOutput([tokens[0].address, weth9.address]))
+      await snapshotGasCost(exactOutput([tokens[0].address, weth9.address]), true)
     })
   })
 
   describe('#exactOutputSingle', () => {
     it('0 -> 1', async () => {
-      await snapshotGasCost(exactOutputSingle(tokens[0].address, tokens[1].address))
+      await snapshotGasCost(exactOutputSingle(tokens[0].address, tokens[1].address), true)
     })
 
     it('WETH9 -> 0', async () => {
-      await snapshotGasCost(exactOutputSingle(weth9.address, tokens[0].address))
+      await snapshotGasCost(exactOutputSingle(weth9.address, tokens[0].address), true)
     })
 
     it('0 -> WETH9', async () => {
-      await snapshotGasCost(exactOutputSingle(tokens[0].address, weth9.address))
+      await snapshotGasCost(exactOutputSingle(tokens[0].address, weth9.address), true)
     })
   })
 })

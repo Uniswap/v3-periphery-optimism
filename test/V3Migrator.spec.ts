@@ -20,10 +20,7 @@ import snapshotGasCost from './shared/snapshotGasCost'
 import { sortedTokens } from './shared/tokenSort'
 import { getMaxTick, getMinTick } from './shared/ticks'
 
-const isOVM = network.name === 'optimism'
-const describeEVM = isOVM ? describe.skip : describe
-
-describeEVM('V3Migrator', () => {
+describe.skip('V3Migrator', () => {
   const wallets = waffle.provider.getWallets()
   const wallet = wallets[0]
 

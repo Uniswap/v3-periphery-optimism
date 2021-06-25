@@ -10,6 +10,7 @@ import {
   TestERC20,
   IUniswapV3Factory,
 } from '../../typechain-ovm'
+import { checkBytesAreSafeForOVM } from './checkBytesAreSafeForOVM'
 
 const completeFixture: Fixture<{
   weth9: IWETH9
@@ -42,7 +43,11 @@ const completeFixture: Fixture<{
       NFTDescriptor: nftDescriptorLibrary.address,
     },
   })
-  const nftDescriptor = (await positionDescriptorFactory.deploy(weth9.address)) as NonfungibleTokenPositionDescriptor
+
+  let nftDescriptor = (await positionDescriptorFactory.deploy(weth9.address)) as NonfungibleTokenPositionDescriptor
+  while (!checkBytesAreSafeForOVM(nftDescriptor.address)) {
+    nftDescriptor = (await positionDescriptorFactory.deploy(weth9.address)) as NonfungibleTokenPositionDescriptor
+  }
 
   const nonfungiblePositionLibraryFactory = await ethers.getContractFactory('NonfungiblePositionLibrary', {
     libraries: {

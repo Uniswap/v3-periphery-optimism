@@ -432,8 +432,7 @@ describe('NonfungiblePositionManager', () => {
       )
     })
 
-    // gas not deterministic on OVM
-    it.skip('gas mint for same pool, different ticks', async () => {
+    it('gas mint for same pool, different ticks', async () => {
       await nft.createAndInitializePoolIfNecessary(
         tokens[0].address,
         tokens[1].address,
@@ -468,7 +467,8 @@ describe('NonfungiblePositionManager', () => {
           amount0Min: 0,
           amount1Min: 0,
           deadline: 10,
-        })
+        }),
+        true // gas not deterministic on OVM
       )
     })
   })
@@ -661,16 +661,18 @@ describe('NonfungiblePositionManager', () => {
     })
 
     // gas not deterministic on OVM
-    it.skip('gas partial decrease', async () => {
+    it('gas partial decrease', async () => {
       await snapshotGasCost(
-        nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 50, amount0Min: 0, amount1Min: 0, deadline: 1 })
+        nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 50, amount0Min: 0, amount1Min: 0, deadline: 1 }),
+        true // gas not deterministic on OVM
       )
     })
 
     // gas not deterministic on OVM
-    it.skip('gas complete decrease', async () => {
+    it('gas complete decrease', async () => {
       await snapshotGasCost(
-        nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 100, amount0Min: 0, amount1Min: 0, deadline: 1 })
+        nft.connect(other).decreaseLiquidity({ tokenId, liquidity: 100, amount0Min: 0, amount1Min: 0, deadline: 1 }),
+        true // gas not deterministic on OVM
       )
     })
   })

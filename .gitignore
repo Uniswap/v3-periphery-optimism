@@ -4,3 +4,4 @@ crytic-export/
 node_modules/
 typechain-ovm/
 optimism/
+contracts/hardhat-dependency-compiler

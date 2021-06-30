@@ -1,4 +1,4 @@
-# Uniswap V3 Periphery
+# Uniswap V3 Periphery Optimism
 
 [![Tests](https://github.com/Uniswap/uniswap-v3-periphery-optimism/workflows/Tests/badge.svg)](https://github.com/Uniswap/uniswap-v3-periphery-optimism/actions?query=workflow%3ATests)
 [![Lint](https://github.com/Uniswap/uniswap-v3-periphery-optimism/workflows/Lint/badge.svg)](https://github.com/Uniswap/uniswap-v3-periphery-optimism/actions?query=workflow%3ALint)

@@ -28,8 +28,16 @@ contract Multicall2Optimism {
         }
     }
 
-    function blockAndAggregate(Call[] memory calls) public returns (uint256 blockNumber, Result[] memory returnData) {
-        (blockNumber, returnData) = tryBlockAndAggregate(true, calls);
+    function blockAndAggregate(Call[] memory calls)
+        public
+        returns (
+            uint256 blockNumber,
+            // this is returned so the interface is consistent with mainnet, but should not be used
+            bytes32 blockHash,
+            Result[] memory returnData
+        )
+    {
+        (blockNumber, blockHash, returnData) = tryBlockAndAggregate(true, calls);
     }
 
     function getBlockNumber() public view returns (uint256 blockNumber) {
@@ -63,9 +71,15 @@ contract Multicall2Optimism {
 
     function tryBlockAndAggregate(bool requireSuccess, Call[] memory calls)
         public
-        returns (uint256 blockNumber, Result[] memory returnData)
+        returns (
+            uint256 blockNumber,
+            // this is returned so the interface is consistent with mainnet, but should not be used
+            bytes32 blockHash,
+            Result[] memory returnData
+        )
     {
         blockNumber = block.number;
+        blockHash = bytes32(0);
         returnData = tryAggregate(requireSuccess, calls);
     }
 }

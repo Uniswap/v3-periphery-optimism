@@ -18,7 +18,7 @@ describe('IncentiveId', () => {
           startTime: 0,
           endTime: 100,
         })
-      ).to.eq('0x000000')
+      ).to.eq('0x17b98489a2dfe2c85076f94f6ed94b2c60a48a728457375268be4e78c6a6de87')
     })
   })
 })

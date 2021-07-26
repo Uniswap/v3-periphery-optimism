@@ -4,7 +4,7 @@ import completeFixture from './shared/completeFixture'
 import { expect } from './shared/expect'
 import { IUniswapV3Factory, MockTimeNonfungiblePositionManager } from '../typechain-ovm'
 
-describe('unit/Deployment', () => {
+describe.only('unit/Deployment', () => {
   const wallets = waffle.provider.getWallets()
 
   let loadFixture: ReturnType<typeof waffle.createFixtureLoader>

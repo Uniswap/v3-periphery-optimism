@@ -2,14 +2,14 @@ import { ethers } from 'hardhat'
 import { expect } from './shared/expect'
 import { TestIncentiveId } from '../typechain-ovm'
 
-describe('IncentiveId', () => {
+describe.only('IncentiveId', () => {
   let incentiveId: TestIncentiveId
   before('deploy test contract', async () => {
     incentiveId = (await (await ethers.getContractFactory('TestIncentiveId')).deploy()) as TestIncentiveId
   })
 
   describe('#compute', () => {
-    it('is correct for empty bytes', async () => {
+    it('is correct for example', async () => {
       expect(
         await incentiveId.compute({
           rewardToken: ethers.constants.AddressZero,

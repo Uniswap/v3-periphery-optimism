@@ -3,6 +3,7 @@ import { UniswapV3Staker, TestERC20 } from '../typechain-ovm'
 import completeFixture from './shared/completeFixture'
 import { expect } from './shared/expect'
 import { IUniswapV3Factory, MockTimeNonfungiblePositionManager } from '../typechain-ovm'
+import { incentiveKeyToIncentiveId } from './shared/incentiveKeyToIncentiveId'
 
 // 1 day
 const MAX_INCENTIVE_START_LEAD_TIME = 3600 * 24
@@ -13,6 +14,7 @@ const { constants } = ethers
 
 describe.only('UniswapV3Staker', () => {
   const wallets = waffle.provider.getWallets()
+  const [wallet] = wallets
 
   let loadFixture: ReturnType<typeof waffle.createFixtureLoader>
 
@@ -59,16 +61,25 @@ describe.only('UniswapV3Staker', () => {
       const startTime = Math.floor(timestamp + MAX_INCENTIVE_START_LEAD_TIME / 2)
       const endTime = Math.floor(startTime + MAX_INCENTIVE_DURATION / 2)
       await token0.approve(staker.address, 100)
-      await staker.createIncentive(
-        {
-          rewardToken: token0.address,
-          pool: constants.AddressZero,
-          startTime,
-          endTime,
-          refundee: wallets[0].address,
-        },
-        100
+      const incentiveKey = {
+        rewardToken: token0.address,
+        pool: constants.AddressZero,
+        startTime,
+        endTime,
+        refundee: wallet.address,
+      }
+      await expect(staker.createIncentive(incentiveKey, 100))
+        .to.emit(staker, 'IncentiveCreated')
+        .withArgs(token0.address, constants.AddressZero, startTime, endTime, 100)
+        .to.emit(token0, 'Transfer')
+        .withArgs(wallet.address, staker.address, 100)
+
+      const { totalRewardUnclaimed, numberOfStakes, totalSecondsClaimedX128 } = await staker.incentives(
+        incentiveKeyToIncentiveId(incentiveKey)
       )
+      expect(totalRewardUnclaimed).to.eq(100)
+      expect(numberOfStakes).to.eq(0)
+      expect(totalSecondsClaimedX128).to.eq(0)
     })
   })
 })

@@ -70,7 +70,7 @@ describe.only('UniswapV3Staker', () => {
       }
       await expect(staker.createIncentive(incentiveKey, 100))
         .to.emit(staker, 'IncentiveCreated')
-        .withArgs(token0.address, constants.AddressZero, startTime, endTime, 100)
+        .withArgs(token0.address, constants.AddressZero, startTime, endTime, wallet.address, 100)
         .to.emit(token0, 'Transfer')
         .withArgs(wallet.address, staker.address, 100)
 
